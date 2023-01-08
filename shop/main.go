@@ -3,12 +3,12 @@ package main
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/jmdavril/pubsub"
-	catalogapi "github.com/jmdavril/template/newshop/context/catalog/api"
-	catalogdata "github.com/jmdavril/template/newshop/context/catalog/data"
-	catalogdomain "github.com/jmdavril/template/newshop/context/catalog/domain"
-	shopapi "github.com/jmdavril/template/newshop/context/shop/api"
-	shopdata "github.com/jmdavril/template/newshop/context/shop/data"
-	shopdomain "github.com/jmdavril/template/newshop/context/shop/domain"
+	catalogapi "github.com/jmdavril/template/shop/context/catalog/api"
+	catalogdata "github.com/jmdavril/template/shop/context/catalog/data"
+	catalogdomain "github.com/jmdavril/template/shop/context/catalog/domain"
+	shopapi "github.com/jmdavril/template/shop/context/shop/api"
+	shopdata "github.com/jmdavril/template/shop/context/shop/data"
+	shopdomain "github.com/jmdavril/template/shop/context/shop/domain"
 	"github.com/jmoiron/sqlx"
 	"log"
 	"os"
@@ -20,6 +20,7 @@ func main() {
 }
 
 func run() {
+
 	////////
 	// data
 	////////
@@ -37,10 +38,9 @@ func run() {
 	var publisher = pubsub.NewPublisher()
 
 	var customerService = shopdomain.NewCustomerService(customerRepo, orderRepo, productSalesRepo)
-	var productSalesService = shopdomain.NewProudctSalesService(productSalesRepo)
+	var productSalesService = shopdomain.NewProductSalesService(productSalesRepo)
 	var shopEventHandler = shopdomain.NewEventHandler(productSalesService)
 	shopEventHandler.StartSubscriptions(publisher)
-
 	var productService = catalogdomain.NewProductService(productRepo)
 
 	///////

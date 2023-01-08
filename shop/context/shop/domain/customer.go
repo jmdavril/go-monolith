@@ -10,7 +10,7 @@ type Customer struct {
 	Email string
 }
 
-func (c Customer) CustomerDto() data.CustomerEntity {
+func (c Customer) CustomerEntity() data.CustomerEntity {
 	return data.CustomerEntity{
 		ID:    c.ID,
 		Email: c.Email,

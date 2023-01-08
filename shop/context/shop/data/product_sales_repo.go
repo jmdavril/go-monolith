@@ -41,3 +41,11 @@ func (r *ProductSalesRepo) UpdateAllProductSales(o OrderEntity) error {
 	}
 	return nil
 }
+
+func (r *ProductSalesRepo) ProductSales() ([]ProductSalesEntity, error) {
+	var sales []ProductSalesEntity
+
+	err := r.db.Select(&sales, "SELECT * FROM product_sales")
+
+	return sales, err
+}

@@ -18,7 +18,7 @@ func (o Order) TotalSpent() float64 {
 	}, 0)
 }
 
-func (o Order) OrderDto() data.OrderEntity {
+func (o Order) OrderEntity() data.OrderEntity {
 	return data.OrderEntity{
 		ID:         o.ID,
 		TotalSpent: o.TotalSpent(),

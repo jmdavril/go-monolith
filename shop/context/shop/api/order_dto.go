@@ -3,7 +3,7 @@ package api
 import (
 	"errors"
 	"github.com/google/uuid"
-	"github.com/jmdavril/template/newshop/context/shop/domain"
+	"github.com/jmdavril/template/shop/context/shop/domain"
 	"github.com/samber/lo"
 )
 

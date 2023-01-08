@@ -2,7 +2,7 @@ package domain
 
 import (
 	"github.com/google/uuid"
-	"github.com/jmdavril/template/newshop/context/shop/data"
+	"github.com/jmdavril/template/shop/context/shop/data"
 )
 
 type CustomerService struct {
@@ -20,7 +20,7 @@ func NewCustomerService(cr *data.CustomerRepo, or *data.OrderRepo, psr *data.Pro
 }
 
 func (s *CustomerService) CreateNewCustomer(c Customer) (uuid.UUID, error) {
-	return s.customerRepo.InsertCustomer(c.CustomerDto())
+	return s.customerRepo.InsertCustomer(c.CustomerEntity())
 }
 
 func (s *CustomerService) ReadCustomer(customerId uuid.UUID) (Customer, error) {
@@ -29,14 +29,14 @@ func (s *CustomerService) ReadCustomer(customerId uuid.UUID) (Customer, error) {
 }
 
 func (s *CustomerService) CreateNewOrder(o Order) (uuid.UUID, error) {
-	dto := o.OrderDto()
+	entity := o.OrderEntity()
 
-	orderId, err := s.orderRepo.InsertOrder(dto)
+	orderId, err := s.orderRepo.InsertOrder(entity)
 	if err != nil {
 		return uuid.Nil, err
 	}
 
-	err = s.productSalesRepo.UpdateAllProductSales(dto)
+	err = s.productSalesRepo.UpdateAllProductSales(entity)
 
 	return orderId, err
 }

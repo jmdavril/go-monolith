@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
-	"github.com/jmdavril/template/newshop/app"
-	"github.com/jmdavril/template/newshop/context/shop/domain"
+	"github.com/jmdavril/template/shop/app"
+	"github.com/jmdavril/template/shop/context/shop/domain"
 	"github.com/lib/pq"
 	"net/http"
 )
@@ -106,6 +106,7 @@ func (c *ShopController) handleOrderCreate() gin.HandlerFunc {
 
 func (c *ShopController) handleSalesRead() gin.HandlerFunc {
 	return func(ctxt *gin.Context) {
+
 		ctxt.JSON(http.StatusOK, gin.H{
 			"data": "todo",
 		})
