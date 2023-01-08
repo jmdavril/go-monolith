@@ -2,21 +2,10 @@ package api
 
 import (
 	"errors"
-
 	"github.com/google/uuid"
-	"github.com/jmdavril/template/shop/context/shop/domain"
+	"github.com/jmdavril/template/newshop/context/shop/domain"
 	"github.com/samber/lo"
 )
-
-type CustomerRequest struct {
-	Email string `json:"email"`
-}
-
-func (req CustomerRequest) customer() domain.Customer {
-	return domain.Customer{
-		Email: req.Email,
-	}
-}
 
 type OrderRequest struct {
 	CustomerId string        `json:"customer"`

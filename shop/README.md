@@ -1,0 +1,7 @@
+- finish implem
+- domain events
+- logs
+- errors
+- testcontainer
+- cli
+- UI
