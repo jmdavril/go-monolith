@@ -1,9 +1,5 @@
-- finish implem
-- SQL
-- domain events
 - logs
 - errors
-- try out api
 - testcontainer
 - cli
 - UI
