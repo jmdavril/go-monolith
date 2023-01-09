@@ -39,9 +39,8 @@ func run() {
 
 	var customerService = shopdomain.NewCustomerService(customerRepo, orderRepo, productSalesRepo)
 	var productSalesService = shopdomain.NewProductSalesService(productSalesRepo)
-	var shopEventHandler = shopdomain.NewEventHandler(productSalesService)
-	shopEventHandler.StartSubscriptions(publisher)
-	var productService = catalogdomain.NewProductService(productRepo)
+	shopdomain.StartSubscriptions(publisher, productSalesService)
+	var productService = catalogdomain.NewProductService(productRepo, publisher)
 
 	///////
 	// api
