@@ -2,8 +2,11 @@ package domain
 
 import (
 	"github.com/google/uuid"
+	"github.com/jmdavril/template/shop/app"
 	"github.com/jmdavril/template/shop/context/shop/data"
 )
+
+var logger = app.LoggerWith(app.Shop, app.Domain)
 
 type CustomerService struct {
 	customerRepo     *data.CustomerRepo
@@ -31,12 +34,17 @@ func (s *CustomerService) ReadCustomer(customerId uuid.UUID) (Customer, error) {
 func (s *CustomerService) CreateNewOrder(o Order) (uuid.UUID, error) {
 	entity := o.OrderEntity()
 
-	orderId, err := s.orderRepo.InsertOrder(entity)
+	orderID, err := s.orderRepo.InsertOrder(entity)
 	if err != nil {
 		return uuid.Nil, err
 	}
 
 	err = s.productSalesRepo.UpdateAllProductSales(entity)
 
-	return orderId, err
+	logger.Info().
+		Str("Op", "orderCreate").
+		Str("OrderID", orderID.String()).
+		Msg("Updated product sales entities for order")
+
+	return orderID, err
 }

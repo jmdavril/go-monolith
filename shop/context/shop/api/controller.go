@@ -12,6 +12,8 @@ import (
 	"net/http"
 )
 
+var logger = app.LoggerWith(app.Shop, app.Api)
+
 type ShopController struct {
 	router          *gin.Engine
 	customerService *domain.CustomerService
@@ -48,6 +50,11 @@ func (c *ShopController) handleCustomerCreate() gin.HandlerFunc {
 			ctxt.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return
 		}
+
+		logger.Info().
+			Str("Op", "customerCreate").
+			Str("CustomerId", cusId.String()).
+			Msg("New customer created")
 
 		ctxt.JSON(http.StatusOK, gin.H{"customerId": cusId})
 	}
@@ -93,20 +100,27 @@ func (c *ShopController) handleOrderCreate() gin.HandlerFunc {
 			return
 		}
 
-		orderId, err := c.customerService.CreateNewOrder(o)
+		orderID, err := c.customerService.CreateNewOrder(o)
 
 		if err != nil {
 			ctxt.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 			return
 		}
 
-		ctxt.JSON(http.StatusOK, gin.H{"orderId": orderId})
+		logger.Info().
+			Str("Op", "orderCreate").
+			Str("CustomerID", request.CustomerId).
+			Str("OrderID", orderID.String()).
+			Msg("New customer created")
+
+		ctxt.JSON(http.StatusOK, gin.H{"orderID": orderID})
 	}
 }
 
 func (c *ShopController) handleSalesRead() gin.HandlerFunc {
 	return func(ctxt *gin.Context) {
 
+		//TODO
 		ctxt.JSON(http.StatusOK, gin.H{
 			"data": "todo",
 		})

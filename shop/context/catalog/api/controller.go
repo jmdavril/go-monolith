@@ -52,6 +52,14 @@ func (c *CatalogController) handleProductCreate() gin.HandlerFunc {
 			return
 		}
 
+		logger.Info().
+			Str("Op", "productCreate").
+			Str("SKU", p.Sku).
+			Str("ProductName", p.Name).
+			Float64("ProductPrice", p.Price).
+			Str("ProductID", p.ID.String()).
+			Msg("New product created")
+
 		ctxt.JSON(http.StatusOK, gin.H{"productId": productId})
 	}
 }
