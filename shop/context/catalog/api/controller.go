@@ -5,13 +5,13 @@ import (
 	"errors"
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
-	"github.com/jmdavril/template/shop/app"
+	"github.com/jmdavril/template/shop/app/utils"
 	"github.com/jmdavril/template/shop/context/catalog/domain"
 	"github.com/lib/pq"
 	"net/http"
 )
 
-var logger = app.LoggerWith(app.Catalog, app.Api)
+var logger = utils.LoggerWith(utils.Catalog, utils.Api)
 
 type CatalogController struct {
 	router         *gin.Engine

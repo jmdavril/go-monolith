@@ -2,11 +2,11 @@ package domain
 
 import (
 	"github.com/google/uuid"
-	"github.com/jmdavril/template/shop/app"
+	"github.com/jmdavril/template/shop/app/utils"
 	"github.com/jmdavril/template/shop/context/shop/data"
 )
 
-var logger = app.LoggerWith(app.Shop, app.Domain)
+var logger = utils.LoggerWith(utils.Shop, utils.Domain)
 
 type CustomerService struct {
 	customerRepo     *data.CustomerRepo

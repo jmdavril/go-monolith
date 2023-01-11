@@ -6,13 +6,13 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
-	"github.com/jmdavril/template/shop/app"
+	"github.com/jmdavril/template/shop/app/utils"
 	"github.com/jmdavril/template/shop/context/shop/domain"
 	"github.com/lib/pq"
 	"net/http"
 )
 
-var logger = app.LoggerWith(app.Shop, app.Api)
+var logger = utils.LoggerWith(utils.Shop, utils.Api)
 
 type ShopController struct {
 	router          *gin.Engine
@@ -41,7 +41,7 @@ func (c *ShopController) handleCustomerCreate() gin.HandlerFunc {
 
 		cusId, err := c.customerService.CreateNewCustomer(domain.Customer{Email: request.Email})
 		if err, ok := err.(*pq.Error); ok {
-			if err.Code == app.UniqueConstraintViolated {
+			if err.Code == utils.UniqueConstraintViolated {
 				ctxt.JSON(http.StatusBadRequest, gin.H{"error": fmt.Sprintf("customer with email '%v' already exists", request.Email)})
 				return
 			}

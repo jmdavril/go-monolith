@@ -1,5 +1,0 @@
-- logs
-- errors
-- testcontainer
-- cli
-- UI
